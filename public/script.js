@@ -39,17 +39,19 @@ camera.start().catch((error) => {
     alert(errorMessage);
 });
 
-function onResults(results) {
-    canvasCtx.save();
-    canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-    canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
+// function onResults(results) {
+//     console.log("onResults called");
+    
+//     canvasCtx.save();
+//     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+//     canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
 
-    if (results.poseLandmarks) {
-        drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: '#00FF00', lineWidth: 4 });
-        drawLandmarks(canvasCtx, results.poseLandmarks, { color: '#FF0000', lineWidth: 2 });
-    }
-    canvasCtx.restore();
-}
+//     if (results.poseLandmarks) {
+//         drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: '#00FF00', lineWidth: 4 });
+//         drawLandmarks(canvasCtx, results.poseLandmarks, { color: '#FF0000', lineWidth: 2 });
+//     }
+//     canvasCtx.restore();
+// }
 
 canvasElement.width = video.videoWidth;
 canvasElement.height = video.videoHeight;
@@ -74,13 +76,42 @@ const magentaCyanScheme = document.getElementById('magentaCyanScheme');
 const blueYellowScheme = document.getElementById('blueYellowScheme');
 
 function setColorScheme(scheme) {
-    // Implement logic to change the color scheme
-    // For now, let's just log the selection
     console.log('Selected color scheme:', scheme);
-    // Save the selection to local storage
     localStorage.setItem('colorScheme', scheme);
-    // Hide the color scheme selection div
     colorSchemeSelection.style.display = 'none';
+
+    // Apply color scheme to MediaPipe overlays
+    let connectorColor = '#00FF00'; // Default
+    let landmarkColor = '#FF0000'; // Default
+
+    if (scheme === 'blueOrange') {
+        connectorColor = 'blue';
+        landmarkColor = 'orange';
+    } else if (scheme === 'magentaCyan') {
+        connectorColor = 'magenta';
+        landmarkColor = 'cyan';
+    } else if (scheme === 'blueYellow') {
+        connectorColor = 'blue';
+        landmarkColor = 'yellow';
+    }
+
+    // Update overlay colors
+    pose.onResults((results) => {
+        onResults(results, connectorColor, landmarkColor);
+    });
+}
+
+function onResults(results, connectorColor, landmarkColor) {
+    canvasCtx.save();
+    canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+    canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
+
+    if (results.poseLandmarks) {
+        console.log('Pose landmarks found'); // Add this line
+        drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: connectorColor, lineWidth: 4 });
+        drawLandmarks(canvasCtx, results.poseLandmarks, { color: landmarkColor, lineWidth: 2 });
+    }
+    canvasCtx.restore();
 }
 
 blueOrangeScheme.addEventListener('click', () => {
@@ -100,3 +131,11 @@ const savedColorScheme = localStorage.getItem('colorScheme');
 if (savedColorScheme) {
     setColorScheme(savedColorScheme);
 }
+
+const exerciseSelect = document.getElementById('exerciseSelect');
+
+exerciseSelect.addEventListener('change', () => {
+    const selectedExercise = exerciseSelect.value;
+    console.log('Selected exercise:', selectedExercise); // Add this line
+    // Add logic to change exercise settings based on selection
+});
