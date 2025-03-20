@@ -2,10 +2,23 @@
 <html>
 <head>
     <title>P-MEFT</title>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
-    <h1>Welcome to P-MEFT!</h1>
-    <video id="webcam" width="640" height="480" autoplay></video>
-    <script src="script.js"></script>
+  <div id="colorSchemeSelection">
+    <p>Choose a color scheme:</p>
+    <button id="blueOrangeScheme">Blue & Orange</button>
+    <button id="magentaCyanScheme">Magenta & Cyan</button>
+    <button id="blueYellowScheme">Blue & Yellow</button>
+  </div>
+  <h1>Welcome to P-MEFT!</h1>
+  <video id="webcam" width="640" height="480" autoplay></video>
+  <button id="startButton">Start</button>
+  <script src="script.js"></script>
 </body>
 </html>
