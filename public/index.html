@@ -22,7 +22,11 @@
     <option value="squat">Squat</option>
     <option value="pushup">Push-up</option>
   </select>
-  <video id="webcam" width="640" height="480" autoplay></video>
+  <!-- Add this container div around the video and canvas -->
+  <div id="videoContainer">
+    <video id="webcam" width="640" height="480" autoplay></video>
+  </div>
+
   <button id="startButton">Start</button>
   <script src="script.js"></script>
 </body>

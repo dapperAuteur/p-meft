@@ -1,3 +1,9 @@
+/* CSS Reset */
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: sans-serif;
   margin: 0;
@@ -5,13 +11,14 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
-#webcam {
+/* #webcam {
   width: 640px;
   height: 480px;
   display: block;
-}
+} */
 
 button {
   padding: 10px 20px;
@@ -49,4 +56,32 @@ canvas {
 #blueYellowScheme {
   background-color: blue;
   color: yellow;
+}
+
+/* body > #poseCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 640px;
+  height: 480px;
+} */
+
+#videoContainer {
+  position: relative;
+  width: 640px;
+  height: 480px;
+  margin: 20px auto;
+}
+
+#webcam {
+  width: 100%;
+  height: 100%;
+}
+
+#poseCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
